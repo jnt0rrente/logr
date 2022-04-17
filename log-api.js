@@ -1,29 +1,45 @@
 const express = require('express')
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const RawLogRepository = require("./rawLogRepository")
+require('dotenv').config();
 
 const app = express();
 const port = 3000;
 
-let logs = [];
-
 app.use(cors());
-
 app.use(bodyParser.urlencoded({
     extended: false
 }));
 app.use(bodyParser.json());
 
-app.post('/log', (req, res) => {
-    const log = req.body;
-    console.log(log);
-    logs.push(log);
+app.set("rawLogRepo", RawLogRepository.getRepo());
 
+app.post('/log/raw/write', (req, res) => {
+    try {
+        let repository = app.get("rawLogRepo")
+        let log = {
+            body: req.body.body,
+            timestamp: Date.now()
+        };
+        repository.create(log);
+    } catch (err) {
+        res.statusMessage = err;
+        res.status("500").end();
+        return;
+    }
     res.sendStatus("200");
 });
 
-app.get('/print', (req, res) => {
-    console.log(logs);
+app.get('/log/raw/print', (req, res) => {
+    try {
+        let repository = app.get("rawLogRepo")
+        repository.listAll();
+    } catch (err) {
+        res.statusMessage = err;
+        res.status("500").end();
+        return;
+    }
     res.sendStatus("200");
 });
 
