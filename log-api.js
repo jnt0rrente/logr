@@ -5,7 +5,7 @@ const RawLogRepository = require("./rawLogRepository")
 require('dotenv').config();
 
 const app = express();
-const port = 3000;
+const port = process.env.API_LISTEN_PORT;
 
 app.use(cors());
 app.use(bodyParser.urlencoded({
