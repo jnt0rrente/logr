@@ -1,10 +1,3 @@
-const mysql = require('mysql');
-
-function getRepo() {
-    let con = connect();
-    return new RawLogRepository(con);
-}
-
 class RawLogRepository {
     constructor(connection) {
         this.connection = connection;
@@ -24,30 +17,21 @@ class RawLogRepository {
         let query = "select * from rawLog;";
         this.connection.query(query, function(err, result, fields) {
             if (err) throw err;
-            console.log("result:");
+            console.log("All Raw logs:");
             console.log(result);
         });
         z
     }
+
+    listOne(log) {
+        let id = log.id;
+        let query = "select * from rawLog r where r.id = ?"
+        this.connection.query(query, [id], function(err, result, fields) {
+            if (err) throw err;
+            console.log("Raw log " + id + ": ")
+            console.log(result);
+        });
+    }
 }
 
-function connect() {
-    let con = mysql.createConnection({
-        host: process.env.DB_HOST,
-        port: process.env.DB_PORT,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_NAME
-    });
-
-    con.connect(function(err) {
-        if (err) {
-            throw err;
-        }
-    });
-
-    return con;
-}
-
-module.exports.getRepo = getRepo;
-module.exports.RawLogRepository = RawLogRepository;
+module.exports.Raw = RawLogRepository;

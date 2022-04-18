@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+
+let http = require('http');
+let fs = require('fs');
+let https = require('https');
+require('dotenv').config();
+
+let app = require('../app');
+
+app.set('api_listen_port', process.env.API_LISTEN_PORT);
+
+let server = http.createServer(app);
+
+server.listen(app.get("api_listen_port"), function() {
+    console.log("listening on " + app.get("api_listen_port"));
+})
