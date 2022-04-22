@@ -3,9 +3,12 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const Repositories = require("./persistence/repositories");
-var connect = require("./persistence/connections").connect;
 
 const app = express();
+const config = require("./config").load();
+app.set("config", config);
+
+const db_connection = require("./persistence/connections").connect(app);
 
 app.use(cors());
 app.use(bodyParser.urlencoded({
@@ -20,8 +23,8 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.set("rawLogRepository", new Repositories.Raw(connect()));
-app.set("geolocationLogRepository", new Repositories.Geolocation(connect()))
+app.set("rawLogRepository", new Repositories.Raw(db_connection));
+app.set("geolocationLogRepository", new Repositories.Geolocation(db_connection))
 
 require("./routes/rawLogs")(app);
 require("./routes/geolocationLogs")(app)

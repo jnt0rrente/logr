@@ -1,17 +1,17 @@
 const mysql = require('mysql');
-
 const con = null;
 
-function connect() {
+module.exports.connect = function(app) {
     console.log("Attempting to connect to database: " + process.env.DB_NAME)
     if (con != null) return con;
     else {
+        let config = app.get("config");
         let con = mysql.createConnection({
-            host: process.env.DB_HOST,
-            port: process.env.DB_PORT,
+            host: config.database.address,
+            port: config.database.port,
+            database: config.database.name,
             user: process.env.DB_USER,
-            password: process.env.DB_PASSWORD,
-            database: process.env.DB_NAME
+            password: process.env.DB_PASSWORD
         });
 
         con.connect(function(err) {
@@ -26,5 +26,3 @@ function connect() {
         return con;
     }
 }
-
-module.exports.connect = connect;
