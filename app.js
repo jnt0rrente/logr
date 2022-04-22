@@ -21,7 +21,9 @@ app.use(function(req, res, next) {
 });
 
 app.set("rawLogRepository", new Repositories.Raw(connect()));
+app.set("geolocationLogRepository", new Repositories.Geolocation(connect()))
 
 require("./routes/rawLogs")(app);
+require("./routes/geolocationLogs")(app)
 
 module.exports = app;
