@@ -2,11 +2,8 @@ fs = require("fs")
 config = require("../config").config
 
 module.exports.save = function (data) {
-
-    console.log(config.output.path)
-    
-    fs.writeFile(
+    fs.appendFileSync(
         config.output.path,
-        data
+        JSON.stringify(data) + "\n"
     )
 }
