@@ -1,8 +1,14 @@
 {
     "app": {
-        "port": 32033
+        "port": 32033,
+        "address": "localhost",
+        "store": "file"
+    },
+    "file": {
+        "path": "./output.log"
     },
     "database": {
+        "type": "mongodb",
         "address": "192.168.43.136",
         "port": 3306,
         "name": "logr_test"
