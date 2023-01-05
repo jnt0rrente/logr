@@ -1,15 +1,11 @@
-import express from 'express';
-import { urlencoded, json } from 'body-parser';
-import cors from 'cors';
-
-import { Raw, Geolocation } from "./persistence/repositories";
+const express = require('express');
+const { urlencoded, json } =  require('body-parser');
+const cors = require('cors');
 
 const app = express();
-const config = require("./config").load();
+require("./config").load();
 
-app.set("config", config);
-
-const db_connection = require("./persistence/connections").connect(app);
+console.log("Configuration loaded without errors.")
 
 app.use(cors());
 app.use(urlencoded({
@@ -24,10 +20,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.set("rawLogRepository", new Raw(db_connection));
-app.set("geolocationLogRepository", new Geolocation(db_connection))
+const rawLogRoutes = require("./api/rawLog/rawLogRouter")
+app.use("/raw", rawLogRoutes)
 
-require("./routes/rawLogs").default(app);
-// require("./routes/geolocationLogs")(app)
-
-export default app;
+module.exports = app;
