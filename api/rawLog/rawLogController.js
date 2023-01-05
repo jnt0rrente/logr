@@ -11,9 +11,11 @@ exports.saveLog = async(req, res) => {
     }
 
     try {
-        
+        const fileOutput = require("../../persistence/fileOutput")
+
+        fileOutput.save(req.body.rawContent)
     } catch (error) {
-        return res.status(400).json({
+        return res.status(500).json({
             error: error.message
         })
     }

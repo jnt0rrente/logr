@@ -1,10 +1,12 @@
 fs = require("fs")
+config = require("../config").config
 
-module.exports = function getFileSaveFunction(path) {
-    return (data) => {
-        fs.writeFile(
-            path,
-            data
-        )
-    }
+module.exports.save = function (data) {
+
+    console.log(config.output.path)
+    
+    fs.writeFile(
+        config.output.path,
+        data
+    )
 }

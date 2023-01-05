@@ -6,7 +6,7 @@ const rawLogController = require("./rawLogController")
 const router = express.Router()
 
 router.post("/log",
-    body("rawContent").notEmpty().trim(),
+    //body("rawContent").notEmpty().trim(),
     // validate some kind of token or sth
     rawLogController.saveLog
 )

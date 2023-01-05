@@ -5,7 +5,7 @@
         "store": "file"
     },
     "file": {
-        "path": "./output.log"
+        "path": "/home/rhean/files/projects/logr/output.log"
     },
     "database": {
         "type": "mongodb",

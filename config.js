@@ -27,7 +27,7 @@ function load() {
     if (config.app.store == "file") {
         exportedConfig.output = {
             destination: "file",
-            save: require("./persistence/fileOutput")(config.file.path)
+            path: config.file.path
         }
     } else if (config.app.store == "database") {
         exportedConfig.output = {
