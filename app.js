@@ -18,11 +18,11 @@ if (config.output.destination = "database") {
                     buildMongoURL(
                         config.output.database.address,
                         config.output.database.port,
-                        config.output.database.name),
+                        config.output.database.database_name),
                     {
                         user: config.output.database.username,
                         pass: config.output.database.password,
-                        dbName: config.output.database.name,
+                        dbName: config.output.database.database_name,
                         useNewUrlParser: true
                     }
                 )

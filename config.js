@@ -41,11 +41,11 @@ function load() {
         switch (exportedConfig.output.databaseType) {
             case "mongodb":
                 exportedConfig.output.database = {
-                    address: config.database.mongodb.address,
-                    port: config.database.mongodb.port,
-                    name: config.database.mongodb.name,
-                    username: config.database.mongodb.username,
-                    password: config.database.mongodb.password
+                    address: config.database.mongodb.address === "" ? process.env.MONGODB_CONNECTION_ADDRESS : config.database.mongodb.address,
+                    port: config.database.mongodb.port === "" ? process.env.MONGODB_PORT : config.database.mongodb.port,
+                    database_name: config.database.mongodb.database_name === "" ? process.env.MONGODB_DB_NAME : config.database.mongodb.database_name,
+                    username: config.database.mongodb.username === "" ? process.env.MONGODB_USERNAME : config.database.mongodb.username,
+                    password: config.database.mongodb.password === "" ? process.env.MONGODB_PASSWORD : config.database.mongodb.password
                 }
                 break;
             default:

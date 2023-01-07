@@ -2,7 +2,7 @@
     "app": {
         "port": 32033,
         "address": "localhost",
-        "store": "file"
+        "store": "database"
     },
     "file": {
         "path": "/home/rhean/files/projects/logr/output.log"
@@ -10,11 +10,11 @@
     "database": {
         "type": "mongodb",
         "mongodb": {
-            "address": "192.168.43.136",
-            "port": 3306,
-            "name": "logr",
+            "address": "logr.bt3di0w.mongodb.net",
+            "port": 27017,
+            "database_name": "logr",
             "username": "logr",
-            "password": "logr"
+            "password": ""
         } 
         
     }
