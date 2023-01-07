@@ -5,7 +5,10 @@ let exportedConfig = {
 }
 
 function buildMongoURL(address, port, name) {
-    return "mongodb://" + address + ":" + port + "/" + name
+    let url = "mongodb://" + address + ":" + port + "/" + name
+    console.log("Trying to connect to " + url)
+    console.log("...")
+    return url
 }
 
 function parse() {

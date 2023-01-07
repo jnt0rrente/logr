@@ -3,9 +3,9 @@ const { urlencoded, json } =  require('body-parser');
 const cors = require('cors');
 const {config, loadConfig, buildMongoURL} = require("./config")
 const mongoose = require("mongoose")
+require('dotenv').config()
 
 const app = express();
-
 
 loadConfig()
 console.log("Configuration loaded without errors.")
