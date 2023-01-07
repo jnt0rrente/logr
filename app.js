@@ -1,13 +1,47 @@
 const express = require('express');
 const { urlencoded, json } =  require('body-parser');
 const cors = require('cors');
+const {config, loadConfig, buildMongoURL} = require("./config")
+const mongoose = require("mongoose")
+mongoose.set('strictQuery', false);
+
+require('dotenv').config()
 
 const app = express();
-require("./config").load();
 
-const {config} = require("./config")
-
+loadConfig()
 console.log("Configuration loaded without errors.")
+
+if (config.output.destination = "database") {
+    switch (config.output.databaseType) {
+        case "mongodb":
+            console.log(config.output.database)
+            mongoose
+                .connect(
+                    buildMongoURL(
+                        config.output.database.address,
+                        config.output.database.port,
+                        config.output.database.database_name),
+                    {
+                        user: config.output.database.username,
+                        pass: config.output.database.password,
+                        dbName: config.output.database.database_name,
+                        useNewUrlParser: true
+                    }
+                )
+                .then(() => {
+                    console.log("Established connection to database " + config.output.database.database_name)
+                })
+                .catch(error => {
+                    console.error({
+                        database_error: error
+                    })
+                })
+            break;
+        default:
+            break;
+    }
+}
 
 app.use(cors());
 app.use(urlencoded({
@@ -25,7 +59,11 @@ app.use(json());
 const rawLogRoutes = require("./api/rawLog/rawLogRouter")
 app.use("/raw", rawLogRoutes)
 
-console.log("Listening on port " + config.port)
-app.listen(config.port)
-
+app.listen(config.port, err => {
+    if (err) {
+      return console.error(err);
+    }
+    return console.log(`Listening on port ${config.port}`);
+  });
+  
 module.exports = app;
