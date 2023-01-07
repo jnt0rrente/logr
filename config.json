@@ -9,8 +9,13 @@
     },
     "database": {
         "type": "mongodb",
-        "address": "192.168.43.136",
-        "port": 3306,
-        "name": "logr"
+        "mongodb": {
+            "address": "192.168.43.136",
+            "port": 3306,
+            "name": "logr",
+            "username": "logr",
+            "password": "logr"
+        } 
+        
     }
 }

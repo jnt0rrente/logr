@@ -1,13 +1,44 @@
 const express = require('express');
 const { urlencoded, json } =  require('body-parser');
 const cors = require('cors');
+const {config, loadConfig, buildMongoURL} = require("./config")
+const mongoose = require("mongoose")
 
 const app = express();
-require("./config").load();
 
-const {config} = require("./config")
 
+loadConfig()
 console.log("Configuration loaded without errors.")
+
+if (config.output.destination = "database") {
+    switch (config.output.databaseType) {
+        case "mongodb":
+            mongoose
+                .connect(
+                    buildMongoURL(
+                        config.output.database.address,
+                        config.output.database.port,
+                        config.output.database.name),
+                    {
+                        user: config.output.database.username,
+                        pass: config.output.database.password,
+                        dbName: config.output.database.name,
+                        useNewUrlParser: true
+                    }
+                )
+                .then(() => {
+                    console.log("Established connection to database " + config.output.database.name)
+                })
+                .catch(error => {
+                    console.error({
+                        database_error: error
+                    })
+                })
+            break;
+        default:
+            break;
+    }
+}
 
 app.use(cors());
 app.use(urlencoded({
