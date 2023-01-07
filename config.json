@@ -11,6 +11,6 @@
         "type": "mongodb",
         "address": "192.168.43.136",
         "port": 3306,
-        "name": "logr_test"
+        "name": "logr"
     }
 }
