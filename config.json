@@ -1,6 +1,6 @@
 {
     "app": {
-        "port": 32033,
+        "port": 32032,
         "address": "localhost",
         "store": "database"
     },
@@ -10,7 +10,7 @@
     "database": {
         "type": "mongodb",
         "mongodb": {
-            "address": "logr.bt3di0w.mongodb.net",
+            "address": "",
             "port": "srv",
             "database_name": "logr",
             "username": "logr",

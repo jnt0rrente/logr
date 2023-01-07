@@ -12,7 +12,7 @@ async function saveOnMongo(content) {
         timestamp: new Date()
     })
 
-    const saved = await rawLog.save()
+    rawLog.save()
 }
 
 async function saveOnFile(content) {

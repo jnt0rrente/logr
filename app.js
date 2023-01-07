@@ -59,7 +59,11 @@ app.use(json());
 const rawLogRoutes = require("./api/rawLog/rawLogRouter")
 app.use("/raw", rawLogRoutes)
 
-console.log("Listening on port " + config.port)
-app.listen(config.port)
-
+app.listen(config.port, err => {
+    if (err) {
+      return console.error(err);
+    }
+    return console.log(`Listening on port ${config.port}`);
+  });
+  
 module.exports = app;
