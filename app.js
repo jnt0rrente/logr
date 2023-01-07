@@ -3,6 +3,8 @@ const { urlencoded, json } =  require('body-parser');
 const cors = require('cors');
 const {config, loadConfig, buildMongoURL} = require("./config")
 const mongoose = require("mongoose")
+mongoose.set('strictQuery', false);
+
 require('dotenv').config()
 
 const app = express();
@@ -13,6 +15,7 @@ console.log("Configuration loaded without errors.")
 if (config.output.destination = "database") {
     switch (config.output.databaseType) {
         case "mongodb":
+            console.log(config.output.database)
             mongoose
                 .connect(
                     buildMongoURL(
@@ -27,7 +30,7 @@ if (config.output.destination = "database") {
                     }
                 )
                 .then(() => {
-                    console.log("Established connection to database " + config.output.database.name)
+                    console.log("Established connection to database " + config.output.database.database_name)
                 })
                 .catch(error => {
                     console.error({

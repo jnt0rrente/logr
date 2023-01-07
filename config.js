@@ -5,9 +5,8 @@ let exportedConfig = {
 }
 
 function buildMongoURL(address, port, name) {
-    let url = "mongodb://" + address + ":" + port + "/" + name
-    console.log("Trying to connect to " + url)
-    console.log("...")
+    let url = (port === "srv") ? "mongodb+srv://" + address + "/" + name : "mongodb://" + address + ":" + port + "/" + name
+    console.log("Trying to connect to " + url + "...")
     return url
 }
 

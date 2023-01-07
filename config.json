@@ -11,7 +11,7 @@
         "type": "mongodb",
         "mongodb": {
             "address": "logr.bt3di0w.mongodb.net",
-            "port": 27017,
+            "port": "srv",
             "database_name": "logr",
             "username": "logr",
             "password": ""
