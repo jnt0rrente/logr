@@ -2,10 +2,9 @@ const express = require('express');
 const { urlencoded, json } =  require('body-parser');
 const cors = require('cors');
 const {config, loadConfig, buildMongoURL} = require("./config/config")
+
 const mongoose = require("mongoose")
 mongoose.set('strictQuery', false);
-
-require('dotenv').config()
 
 const app = express();
 
@@ -63,11 +62,11 @@ app.use("/raw", tokenRouter, rawLogRoutes)
 const geolocationLogRoutes = require("./api/geolocationlog/geolocationLogRouter")
 app.use("/geolocation", tokenRouter, geolocationLogRoutes)
 
-app.listen(config.port, err => {
-    if (err) {
-      return console.error(err);
-    }
-    return console.log(`Listening on port ${config.port}`);
-  });
+// app.listen(config.port, err => {
+//     if (err) {
+//       return console.error(err);
+//     }
+//     return console.log(`Listening on port ${config.port}`);
+//   });
   
 module.exports = app;
