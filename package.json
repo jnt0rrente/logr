@@ -1,16 +1,17 @@
 {
     "name": "logr",
     "version": "1.0.0",
-    "description": "logging service for a self-hosted bulk",
+    "description": "Centralized logging API.",
     "main": "index.js",
     "scripts": {
         "test": "echo \"Tests not implemented.\"",
         "start": "node index.js"
     },
     "keywords": [
-        "logger"
+        "logger",
+        "expressjs"
     ],
-    "author": "rhean",
+    "author": "jnt0rrente",
     "license": "GNU",
     "dependencies": {
         "body-parser": "^1.20.0",

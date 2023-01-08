@@ -2,4 +2,3 @@ node_modules/
 .env
 .idea
 *.log
-.docker-compose.yml
