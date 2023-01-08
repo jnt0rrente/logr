@@ -19,3 +19,5 @@ tokenRouter.use(async (req, res, next) => {
         message: "Unauthorized key."
     })
 })
+
+module.exports = tokenRouter
