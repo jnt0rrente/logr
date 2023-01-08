@@ -1,5 +1,5 @@
 fs = require("fs")
-const {config} = require("../config")
+const {config} = require("../config/config")
 
 module.exports.save = function (data) {
     fs.appendFileSync(

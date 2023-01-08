@@ -1,7 +1,7 @@
 const express = require('express');
 const { urlencoded, json } =  require('body-parser');
 const cors = require('cors');
-const {config, loadConfig, buildMongoURL} = require("./config")
+const {config, loadConfig, buildMongoURL} = require("./config/config")
 const mongoose = require("mongoose")
 mongoose.set('strictQuery', false);
 
@@ -15,7 +15,6 @@ console.log("Configuration loaded without errors.")
 if (config.output.destination = "database") {
     switch (config.output.databaseType) {
         case "mongodb":
-            console.log(config.output.database)
             mongoose
                 .connect(
                     buildMongoURL(
@@ -56,8 +55,10 @@ app.use(json());
 //     next();
 // });
 
+const tokenRouter = require("./middleware/tokenRouter")
+
 const rawLogRoutes = require("./api/rawLog/rawLogRouter")
-app.use("/raw", rawLogRoutes)
+app.use("/raw", tokenRouter, rawLogRoutes)
 
 app.listen(config.port, err => {
     if (err) {

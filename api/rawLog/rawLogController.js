@@ -2,7 +2,7 @@ const {
     validationResult
 } = require("express-validator")
 
-const {config} = require("../../config")
+const {config} = require("../../config/config")
 
 async function saveOnMongo(content) {
     const RawLog = require("../../persistence/mongo/RawLog")
