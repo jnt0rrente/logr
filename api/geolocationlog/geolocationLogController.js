@@ -53,7 +53,7 @@ exports.saveLog = async(req, res) => {
                         break;
 
                     default:
-                        break;
+                        throw new Error("Unsupported database type.")
                 }
                 break;
             default:

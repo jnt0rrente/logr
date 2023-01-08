@@ -6,6 +6,6 @@
         "apikey": "ex4mple"
     },
     "file": {
-        "path": "/data/output.log"
+        "path": "/logr/output.log"
     }
 }

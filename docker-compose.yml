@@ -1,12 +1,12 @@
 version: '3.1'
 
 services:
-  server:
+  logr:
     build:
       context: "."
       args:
         app_apikey: ${APP_APIKEY}
-        output: "database" #"file" or "database"
+        output: "file" #"file" or "database"
         
         #if output: "database"
         database_type: "mongodb" #mariadb planned but not yet implemented
@@ -17,7 +17,8 @@ services:
       - 32032:32032
     
     volumes: #required if output: "file"
-      - logr-volume:/data
+      - logr:/logr
 
 volumes:
-  logr-volume:
+  logr:
+    external: true

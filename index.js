@@ -14,7 +14,7 @@ const app = express();
 loadConfig()
 console.log("Configuration loaded without errors.")
 
-if (config.output.destination = "database") {
+if (config.output.destination === "database") {
     switch (config.output.databaseType) {
         case "mongodb":
             mongoose
@@ -65,6 +65,7 @@ let server = http.createServer(app);
 
 server.listen(config.port, function() {
     console.log("Logr listening on port " + config.port);
+    console.log("App running on config " + JSON.stringify(config))
 })
 
 module.exports = app;

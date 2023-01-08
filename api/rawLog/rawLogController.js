@@ -39,6 +39,7 @@ exports.saveLog = async(req, res) => {
     let date = new Date()
     console.log(date.toISOString() + "\tRaw Log\t[Source: " + req.body.sourceId + "\tContent: " + req.body.content + "]")
 
+    console.log("AA" + JSON.stringify(config))
     try {
         switch (config.output.destination) {
             case "file":

@@ -57,11 +57,12 @@ function load() {
     exportedConfig.address = defaults.app.address
     exportedConfig.apikey = envVars.apikey ?? defaults.apikey
     
-    const output = envVars.output ?? defaults.output
+    const output = envVars.output
+
     if (output === "file") {
         exportedConfig.output = {
             destination: "file",
-            path: defaults.path
+            path: defaults.file.path
         }
     } else if (output === "database") {
         exportedConfig.output = {
@@ -82,5 +83,7 @@ function load() {
     }
 }
 
+const config = exportedConfig
+
 module.exports.loadConfig = load;
-module.exports.config = exportedConfig
+module.exports.config = config
