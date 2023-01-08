@@ -54,13 +54,6 @@ app.use("/raw", tokenRouter, rawLogRoutes)
 const geolocationLogRoutes = require("./api/geolocationlog/geolocationLogRouter")
 app.use("/geolocation", tokenRouter, geolocationLogRoutes)
 
-// app.listen(config.port, err => {
-//     if (err) {
-//       return console.error(err);
-//     }
-//     return console.log(`Listening on port ${config.port}`);
-//   });
-
 let server = http.createServer(app);
 
 server.listen(config.port, function() {
