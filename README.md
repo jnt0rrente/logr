@@ -2,7 +2,7 @@
 Centralized listening API to read and store logs from different apps over HTTP.
 
 ## What for?
-Logr is oriented to IoT developers and self-hosters, to provide them with a simple way to centralize logging for all their devices and sensors.
+Logr is aimed at IoT developers and self-hosters, to provide them with a simple way to centralize logging for all their devices and sensors.
 The service is intended to run on a self-hosted server 
 
 ## Installation
@@ -14,5 +14,5 @@ The application is easily configurable from the config.json file located at the 
 
 ## Pending features
 - [x] Whole-app config
+- [x] Custom log flavors
 - [ ] Docker deployment
-- [ ] Custom log flavors
