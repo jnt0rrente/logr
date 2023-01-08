@@ -44,7 +44,7 @@ function load() {
         switch (exportedConfig.output.databaseType) {
             case "mongodb":
                 exportedConfig.output.database = {
-                    address: config.database.mongodb.address === "" ? process.env.MONGODB_CONNECTION_ADDRESS : config.database.mongodb.address,
+                    address: config.database.mongodb.address === "" ? process.env.MONGODB_ADDRESS : config.database.mongodb.address,
                     port: config.database.mongodb.port === "" ? process.env.MONGODB_PORT : config.database.mongodb.port,
                     database_name: config.database.mongodb.database_name === "" ? process.env.MONGODB_DB_NAME : config.database.mongodb.database_name,
                     username: config.database.mongodb.username === "" ? process.env.MONGODB_USERNAME : config.database.mongodb.username,
