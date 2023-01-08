@@ -8,8 +8,8 @@ async function saveOnMongo({coordinates, id}) {
     const GeolocationLog = require("../../persistence/mongo/GeolocationLog")
 
     const geolocationLog = new GeolocationLog({
-        coordinates: coordinates,
-        id: id,
+        coordinates,
+        id,
         timestamp: new Date()
     })
 

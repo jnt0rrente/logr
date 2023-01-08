@@ -8,7 +8,7 @@ async function saveOnMongo({content}) {
     const RawLog = require("../../persistence/mongo/RawLog")
 
     const rawLog = new RawLog({
-        content: content,
+        content,
         timestamp: new Date()
     })
 
@@ -20,7 +20,7 @@ async function saveOnFile({content}) {
 
     fileOutput.save(
         {
-            content: req.body.content,
+            content,
             timestamp: new Date().toISOString()
         }
     )
