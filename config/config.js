@@ -4,61 +4,86 @@ let exportedConfig = {
 
 }
 
-function buildMongoURL(address, port, name) {
-    let url = (port === "srv") ? "mongodb+srv://" + address + "/" + name : "mongodb://" + address + ":" + port + "/" + name
-    console.log("Trying to connect to " + url + "...")
-    return url
+function parseDefaults() {
+    let raw = fs.readFileSync("./config/defaults.json");
+    let defaults = JSON.parse(raw);
+    return defaults;
 }
 
-function parse() {
-    let raw = fs.readFileSync("./config.json");
-    let config = JSON.parse(raw);
-    return config;
-}
+function validateEnv(env) {
+    validOutputs = ["file", "database"]
+    validDatabases = ["mongodb"]
 
-function validate(config) {
-    if (config.app.store !== "file" && config.app.store !== "database") {
-        throw new Error("Invalid config: app.store must be 'file' or 'database'")
+    if (env.apikey === "") {
+        throw new Error ("Unsupported database type or wrong configuration.")
+    }
+    
+    if (!validOutputs.includes(env.output)) {
+        throw new Error ("Invalid output option. Accepted: " + JSON.stringify(validOutputs) + ", got '" + env.output + "'.")
+    }
+
+    if (env.output === "database") {
+        switch (env.database_type) {
+            case "mongodb":
+                if (env.mongodb_connection_string === undefined || !/mongodb(?:\+srv)?:\/\/.*/.test(env.mongodb_connection_string)) {
+                    throw new Error ("Invalid MongoDB connection string: '" + env.mongodb_connection_string + "'")
+                }
+
+                break;
+            default:
+                throw new Error ("Invalid database type. Accepted: " + JSON.stringify(validDatabases) + ", got '" + env.database_type + "'.")
+        }
     }
 }
 
+function loadEnv() {
+    const env = {
+        apikey: process.env.APP_APIKEY,
+        output: process.env.OUTPUT,
+        database_type: process.env.DATABASE_TYPE,
+        mongodb_connection_string: process.env.MONGODB_CONNECTION_STRING
+    }
+
+    validateEnv(env)
+
+    return env
+}
+
 function load() {
-    const config = parse()
+    const defaults = parseDefaults()
+    const envVars = loadEnv()
 
-    validate(config)
-
-    exportedConfig.port = config.app.port
-    exportedConfig.address = config.app.address
-    exportedConfig.apikey = config.app.apikey === "" ? process.env.APP_APIKEY : config.app.apikey
+    exportedConfig.port = defaults.app.port
+    exportedConfig.address = defaults.app.address
+    exportedConfig.apikey = envVars.apikey ?? defaults.apikey
     
-    if (config.app.store == "file") {
+    const output = envVars.output
+
+    if (output === "file") {
         exportedConfig.output = {
             destination: "file",
-            path: config.file.path
+            path: defaults.file.path
         }
-    } else if (config.app.store == "database") {
+    } else if (output === "database") {
         exportedConfig.output = {
             destination: "database",
-            databaseType: config.database.type
+            databaseType: envVars.database_type
         }
         switch (exportedConfig.output.databaseType) {
             case "mongodb":
                 exportedConfig.output.database = {
-                    address: config.database.mongodb.address === "" ? process.env.MONGODB_ADDRESS : config.database.mongodb.address,
-                    port: config.database.mongodb.port === "" ? process.env.MONGODB_PORT : config.database.mongodb.port,
-                    database_name: config.database.mongodb.database_name === "" ? process.env.MONGODB_DB_NAME : config.database.mongodb.database_name,
-                    username: config.database.mongodb.username === "" ? process.env.MONGODB_USERNAME : config.database.mongodb.username,
-                    password: config.database.mongodb.password === "" ? process.env.MONGODB_PASSWORD : config.database.mongodb.password
+                    connection_string: envVars.mongodb_connection_string
                 }
                 break;
             default:
-                throw new Error ("Unsupported database type or wrong configuration.")
+                throw new Error("Unsupported database type or wrong configuration.")
         }
     } else {
         throw new Error("Not yet implemented.")
     }
 }
 
+const config = exportedConfig
+
 module.exports.loadConfig = load;
-module.exports.config = exportedConfig
-module.exports.buildMongoURL = buildMongoURL
+module.exports.config = config

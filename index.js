@@ -1,7 +1,10 @@
 const express = require('express');
+const http = require('http');
 const { urlencoded, json } =  require('body-parser');
 const cors = require('cors');
-const {config, loadConfig, buildMongoURL} = require("./config/config")
+require('dotenv').config();
+
+const {config, loadConfig} = require("./config/config")
 
 const mongoose = require("mongoose")
 mongoose.set('strictQuery', false);
@@ -11,28 +14,17 @@ const app = express();
 loadConfig()
 console.log("Configuration loaded without errors.")
 
-if (config.output.destination = "database") {
+if (config.output.destination === "database") {
     switch (config.output.databaseType) {
         case "mongodb":
             mongoose
-                .connect(
-                    buildMongoURL(
-                        config.output.database.address,
-                        config.output.database.port,
-                        config.output.database.database_name),
-                    {
-                        user: config.output.database.username,
-                        pass: config.output.database.password,
-                        dbName: config.output.database.database_name,
-                        useNewUrlParser: true
-                    }
-                )
+                .connect(config.output.database.connection_string)
                 .then(() => {
-                    console.log("Established connection to database " + config.output.database.database_name)
+                    console.log("Established connection to database.")
                 })
                 .catch(error => {
                     console.error({
-                        database_error: error
+                        mongodb_error: error
                     })
                 })
             break;
@@ -62,11 +54,11 @@ app.use("/raw", tokenRouter, rawLogRoutes)
 const geolocationLogRoutes = require("./api/geolocationlog/geolocationLogRouter")
 app.use("/geolocation", tokenRouter, geolocationLogRoutes)
 
-// app.listen(config.port, err => {
-//     if (err) {
-//       return console.error(err);
-//     }
-//     return console.log(`Listening on port ${config.port}`);
-//   });
-  
+let server = http.createServer(app);
+
+server.listen(config.port, function() {
+    console.log("Logr listening on port " + config.port);
+    console.log("App running on config " + JSON.stringify(config))
+})
+
 module.exports = app;

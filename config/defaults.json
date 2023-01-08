@@ -1,0 +1,10 @@
+{
+    "app": {
+        "port": 32032,
+        "address": "localhost",
+        "apikey": "ex4mple"
+    },
+    "file": {
+        "path": "/logr/output.log"
+    }
+}

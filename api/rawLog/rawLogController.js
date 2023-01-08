@@ -21,8 +21,8 @@ async function saveOnFile({content, sourceId}, date) {
 
     fileOutput.save(
         {
-            content,
             sourceId,
+            content,
             timestamp: date.toISOString()
         }
     )

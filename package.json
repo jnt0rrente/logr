@@ -4,8 +4,8 @@
     "description": "logging service for a self-hosted bulk",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"OK\"",
-        "start": "node ./bin/www"
+        "test": "echo \"Tests not implemented.\"",
+        "start": "node index.js"
     },
     "keywords": [
         "logger"

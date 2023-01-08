@@ -4,7 +4,7 @@ const {
 
 const {config} = require("../../config/config")
 
-async function saveOnMongo({coordinates, id}, date) {
+async function saveOnMongo({coordinates, sourceId}, date) {
     const GeolocationLog = require("../../persistence/mongo/GeolocationLog")
 
     const geolocationLog = new GeolocationLog({
@@ -21,8 +21,8 @@ async function saveOnFile({coordinates, sourceId}, date) {
 
     fileOutput.save(
         {
-            coordinates,
             sourceId,
+            coordinates,
             timestamp: date.toISOString()
         }
     )
@@ -41,7 +41,6 @@ exports.saveLog = async(req, res) => {
 
     try {
         switch (config.output.destination) {
-
             case "file":
                 await saveOnFile(req.body, date)
                 break;
@@ -54,7 +53,7 @@ exports.saveLog = async(req, res) => {
                         break;
 
                     default:
-                        break;
+                        throw new Error("Unsupported database type.")
                 }
                 break;
             default:
