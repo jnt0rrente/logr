@@ -2,7 +2,6 @@
     "app": {
         "port": 32032,
         "address": "localhost",
-        "output": "file",
         "apikey": "ex4mple"
     },
     "file": {

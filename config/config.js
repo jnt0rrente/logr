@@ -76,7 +76,7 @@ function load() {
                 }
                 break;
             default:
-                throw new Error ("Unsupported database type or wrong configuration.")
+                throw new Error("Unsupported database type or wrong configuration.")
         }
     } else {
         throw new Error("Not yet implemented.")
