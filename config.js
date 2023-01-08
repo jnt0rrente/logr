@@ -29,6 +29,7 @@ function load() {
 
     exportedConfig.port = config.app.port
     exportedConfig.address = config.app.address
+    exportedConfig.apikey = config.app.apikey === "" ? process.env.APP_APIKEY : config.app.apikey
     
     if (config.app.store == "file") {
         exportedConfig.output = {
