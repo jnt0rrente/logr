@@ -2,7 +2,7 @@
     "name": "logr",
     "version": "1.0.0",
     "description": "logging service for a self-hosted bulk",
-    "main": "index.js",
+    "main": "bin/www",
     "scripts": {
         "test": "echo \"OK\"",
         "start": "node ./bin/www"
