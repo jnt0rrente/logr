@@ -5,7 +5,7 @@ const geolocationLog = mongoose.Schema({
         type: String,
         required: true
     },
-    id: {
+    sourceId: {
         type: String,
         required: true
     },
