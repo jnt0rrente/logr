@@ -1,23 +1,23 @@
-version: '3.1'
+version: '3.9'
 
 services:
   server:
-    build: '.'
+    build:
+      context: "."
+      args:
+        app_apikey: ${APP_APIKEY}
+        output: "database" #"file" or "database"
+        
+        #if output: "database"
+        database_type: "mongodb" #mariadb planned but not yet implemented
+
+        #if database_type: "mongodb"
+        mongodb_connection_string: ${MONGODB_CONNECTION_STRING}
     ports:
       - 32032:32032
     
     volumes: #required if output: "file"
       - logr-volume:/data
-    
-    args:
-      app_apikey: ${APP_APIKEY}
-      output: "database" #"file" or "database"
-      
-      #if output: "database"
-      database_type: "mongodb" #mariadb planned but not yet implemented
-
-      #if database_type: "mongodb"
-      mongodb_connection_string: ${MONGODB_CONNECTION_STRING}
 
 volumes:
   logr-volume:

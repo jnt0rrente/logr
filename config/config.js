@@ -17,16 +17,16 @@ function validateEnv(env) {
     if (env.apikey === "") {
         throw new Error ("Unsupported database type or wrong configuration.")
     }
-    console.log(!!!validOutputs.find(env.output))
-    if (!!!validOutputs.find(env.output)) {
+    
+    if (!validOutputs.includes(env.output)) {
         throw new Error ("Invalid output option. Accepted: " + JSON.stringify(validOutputs) + ", got '" + env.output + "'.")
     }
 
     if (env.output === "database") {
         switch (env.database_type) {
             case "mongodb":
-                if (env.mongodb_connection_string === undefined || !"mongodb:\/\/.*".test(env.mongodb_connection_string)) {
-                    throw new Error ("Invalid MongoDB connection string.")
+                if (env.mongodb_connection_string === undefined || !/mongodb(?:\+srv)?:\/\/.*/.test(env.mongodb_connection_string)) {
+                    throw new Error ("Invalid MongoDB connection string: '" + env.mongodb_connection_string + "'")
                 }
 
                 break;
@@ -57,14 +57,13 @@ function load() {
     exportedConfig.address = defaults.app.address
     exportedConfig.apikey = envVars.apikey && defaults.apikey
     
-    const output = envVars.output && defaults.output
-
-    if (output == "file") {
+    const output = envVars.output ?? defaults.output
+    if (output === "file") {
         exportedConfig.output = {
             destination: "file",
             path: defaults.path
         }
-    } else if (output == "database") {
+    } else if (output === "database") {
         exportedConfig.output = {
             destination: "database",
             databaseType: envVars.database_type
