@@ -15,4 +15,4 @@ The application is easily configurable from the config.json file located at the 
 ## Pending features
 - [x] Whole-app config
 - [x] Custom log flavors
-- [ ] Docker deployment
+- [x] Docker deployment
