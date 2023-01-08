@@ -9,7 +9,7 @@ async function saveOnMongo({coordinates, id}, date) {
 
     const geolocationLog = new GeolocationLog({
         coordinates,
-        id,
+        sourceId,
         timestamp: date
     })
 
