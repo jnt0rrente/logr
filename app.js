@@ -56,8 +56,10 @@ app.use(json());
 //     next();
 // });
 
+const tokenRouter = require("./middleware/tokenRouter")
+
 const rawLogRoutes = require("./api/rawLog/rawLogRouter")
-app.use("/raw", rawLogRoutes)
+app.use("/raw", tokenRouter, rawLogRoutes)
 
 app.listen(config.port, err => {
     if (err) {
