@@ -1,4 +1,4 @@
-FROM node:slim
+FROM node:16
 
 # Declaring envs
 ARG app_apikey
@@ -17,7 +17,7 @@ ENV NODE_ENV development
 
 
 # Setting up the work directory
-WORKDIR /express-docker
+WORKDIR /usr/src/app
 
 # Copying all the files in our project
 COPY . .
