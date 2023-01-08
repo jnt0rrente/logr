@@ -21,8 +21,8 @@ async function saveOnFile({coordinates, sourceId}, date) {
 
     fileOutput.save(
         {
-            coordinates,
             sourceId,
+            coordinates,
             timestamp: date.toISOString()
         }
     )
