@@ -4,23 +4,25 @@ const {
 
 const {config} = require("../../config/config")
 
-async function saveOnMongo({content}) {
-    const RawLog = require("../../persistence/mongo/RawLog")
+async function saveOnMongo({coordinates, id}) {
+    const GeolocationLog = require("../../persistence/mongo/GeolocationLog")
 
-    const rawLog = new RawLog({
-        content,
+    const geolocationLog = new GeolocationLog({
+        coordinates,
+        id,
         timestamp: new Date()
     })
 
-    rawLog.save()
+    geolocationLog.save()
 }
 
-async function saveOnFile({content}) {
+async function saveOnFile({coordinates, id}) {
     const fileOutput = require("../../persistence/fileOutput")
 
     fileOutput.save(
         {
-            content,
+            coordinates,
+            id,
             timestamp: new Date().toISOString()
         }
     )

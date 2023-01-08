@@ -2,11 +2,12 @@ const {
     body
 } = require("express-validator")
 const express = require("express")
-const rawLogController = require("./rawLogController")
+const rawLogController = require("./geolocationLogController")
 const router = express.Router()
 
 router.post("/log",
-    body("content").notEmpty().trim().escape(),
+    body("coordinates").notEmpty().isLatLong().trim().escape(),
+    body("id").notEmpty().trim().escape(),
     rawLogController.saveLog
 )
 
