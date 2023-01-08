@@ -15,7 +15,6 @@ console.log("Configuration loaded without errors.")
 if (config.output.destination = "database") {
     switch (config.output.databaseType) {
         case "mongodb":
-            console.log(config.output.database)
             mongoose
                 .connect(
                     buildMongoURL(
