@@ -4,7 +4,7 @@ const {
 
 const {config} = require("../../config/config")
 
-async function saveOnMongo({coordinates, id}, date) {
+async function saveOnMongo({coordinates, sourceId}, date) {
     const GeolocationLog = require("../../persistence/mongo/GeolocationLog")
 
     const geolocationLog = new GeolocationLog({
@@ -41,7 +41,6 @@ exports.saveLog = async(req, res) => {
 
     try {
         switch (config.output.destination) {
-
             case "file":
                 await saveOnFile(req.body, date)
                 break;
