@@ -12,5 +12,5 @@ app.set('api_listen_port', process.env.API_LISTEN_PORT);
 let server = http.createServer(app);
 
 server.listen(app.get("api_listen_port"), function() {
-    console.log("listening on " + app.get("api_listen_port"));
+    // console.log("listening on " + app.get("api_listen_port"));
 })
