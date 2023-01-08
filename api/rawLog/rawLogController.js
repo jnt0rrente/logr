@@ -4,24 +4,24 @@ const {
 
 const {config} = require("../../config/config")
 
-async function saveOnMongo({content}) {
+async function saveOnMongo({content}, date) {
     const RawLog = require("../../persistence/mongo/RawLog")
 
     const rawLog = new RawLog({
         content,
-        timestamp: new Date()
+        timestamp: date
     })
 
     rawLog.save()
 }
 
-async function saveOnFile({content}) {
+async function saveOnFile({content}, date) {
     const fileOutput = require("../../persistence/fileOutput")
 
     fileOutput.save(
         {
             content,
-            timestamp: new Date().toISOString()
+            timestamp: date.toISOString()
         }
     )
 }
@@ -34,18 +34,20 @@ exports.saveLog = async(req, res) => {
         })
     }
 
+    let date = new Date()
+    console.log(date.toISOString() + "\tRaw Log\t[Content: " + req.body.content + "]")
+
     try {
         switch (config.output.destination) {
-
             case "file":
-                await saveOnFile(req.body)
+                await saveOnFile(req.body, date)
                 break;
 
             case "database":
                 switch (config.output.databaseType) {
 
                     case "mongodb":
-                        await saveOnMongo(req.body)
+                        await saveOnMongo(req.body, date)
                         break;
 
                     default:
