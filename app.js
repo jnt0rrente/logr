@@ -1,7 +1,7 @@
 const express = require('express');
 const { urlencoded, json } =  require('body-parser');
 const cors = require('cors');
-const {config, loadConfig, buildMongoURL} = require("./config")
+const {config, loadConfig, buildMongoURL} = require("./config/config")
 const mongoose = require("mongoose")
 mongoose.set('strictQuery', false);
 
