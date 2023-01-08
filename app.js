@@ -60,6 +60,9 @@ const tokenRouter = require("./middleware/tokenRouter")
 const rawLogRoutes = require("./api/rawLog/rawLogRouter")
 app.use("/raw", tokenRouter, rawLogRoutes)
 
+const geolocationLogRoutes = require("./api/geolocationlog/geolocationLogRouter")
+app.use("/geolocation", tokenRouter, geolocationLogRoutes)
+
 app.listen(config.port, err => {
     if (err) {
       return console.error(err);
