@@ -4,23 +4,25 @@ const {
 
 const {config} = require("../../config/config")
 
-async function saveOnMongo({content}, date) {
+async function saveOnMongo({content, sourceId}, date) {
     const RawLog = require("../../persistence/mongo/RawLog")
 
     const rawLog = new RawLog({
         content,
+        sourceId,
         timestamp: date
     })
 
     rawLog.save()
 }
 
-async function saveOnFile({content}, date) {
+async function saveOnFile({content, sourceId}, date) {
     const fileOutput = require("../../persistence/fileOutput")
 
     fileOutput.save(
         {
             content,
+            sourceId,
             timestamp: date.toISOString()
         }
     )
@@ -35,7 +37,7 @@ exports.saveLog = async(req, res) => {
     }
 
     let date = new Date()
-    console.log(date.toISOString() + "\tRaw Log\t[Content: " + req.body.content + "]")
+    console.log(date.toISOString() + "\tRaw Log\t[Source: " + req.body.sourceId + "\tContent: " + req.body.content + "]")
 
     try {
         switch (config.output.destination) {

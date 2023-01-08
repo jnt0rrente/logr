@@ -5,6 +5,10 @@ const rawLogSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    sourceId: {
+        type: String,
+        required: true
+    },
     timestamp: {
         type: mongoose.SchemaTypes.Date,
         required: true

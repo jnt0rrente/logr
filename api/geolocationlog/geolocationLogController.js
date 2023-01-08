@@ -16,13 +16,13 @@ async function saveOnMongo({coordinates, id}, date) {
     geolocationLog.save()
 }
 
-async function saveOnFile({coordinates, id}, date) {
+async function saveOnFile({coordinates, sourceId}, date) {
     const fileOutput = require("../../persistence/fileOutput")
 
     fileOutput.save(
         {
             coordinates,
-            id,
+            sourceId,
             timestamp: date.toISOString()
         }
     )
@@ -37,7 +37,7 @@ exports.saveLog = async(req, res) => {
     }
 
     let date = new Date()
-    console.log(date.toISOString() + "\tGeolocation Log\t[Source: " + req.body.id + "\tCoordinates: " + req.body.coordinates + "]")
+    console.log(date.toISOString() + "\tGeolocation Log\t[Source: " + req.body.sourceId + "\tCoordinates: " + req.body.coordinates + "]")
 
     try {
         switch (config.output.destination) {
