@@ -55,7 +55,7 @@ function load() {
 
     exportedConfig.port = defaults.app.port
     exportedConfig.address = defaults.app.address
-    exportedConfig.apikey = envVars.apikey && defaults.apikey
+    exportedConfig.apikey = envVars.apikey ?? defaults.apikey
     
     const output = envVars.output ?? defaults.output
     if (output === "file") {
