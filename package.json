@@ -2,10 +2,10 @@
     "name": "logr",
     "version": "1.0.0",
     "description": "logging service for a self-hosted bulk",
-    "main": "bin/www",
+    "main": "index.js",
     "scripts": {
-        "test": "echo \"OK\"",
-        "start": "node ./bin/www"
+        "test": "echo \"Tests not implemented.\"",
+        "start": "node index.js"
     },
     "keywords": [
         "logger"

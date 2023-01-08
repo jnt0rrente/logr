@@ -1,6 +1,9 @@
 const express = require('express');
+const http = require('http');
 const { urlencoded, json } =  require('body-parser');
 const cors = require('cors');
+require('dotenv').config();
+
 const {config, loadConfig} = require("./config/config")
 
 const mongoose = require("mongoose")
@@ -57,5 +60,11 @@ app.use("/geolocation", tokenRouter, geolocationLogRoutes)
 //     }
 //     return console.log(`Listening on port ${config.port}`);
 //   });
-  
+
+let server = http.createServer(app);
+
+server.listen(config.port, function() {
+    console.log("Logr listening on port " + config.port);
+})
+
 module.exports = app;
