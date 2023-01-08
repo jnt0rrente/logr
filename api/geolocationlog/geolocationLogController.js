@@ -4,19 +4,19 @@ const {
 
 const {config} = require("../../config/config")
 
-async function saveOnMongo(coordinates, id) {
+async function saveOnMongo({coordinates, id}) {
     const GeolocationLog = require("../../persistence/mongo/GeolocationLog")
 
     const geolocationLog = new GeolocationLog({
-        coordinates,
-        id,
+        coordinates: coordinates,
+        id: id,
         timestamp: new Date()
     })
 
     geolocationLog.save()
 }
 
-async function saveOnFile(coordinates, id) {
+async function saveOnFile({coordinates, id}) {
     const fileOutput = require("../../persistence/fileOutput")
 
     fileOutput.save(
@@ -40,14 +40,14 @@ exports.saveLog = async(req, res) => {
         switch (config.output.destination) {
 
             case "file":
-                await saveOnFile(req.body.content)
+                await saveOnFile(req.body)
                 break;
 
             case "database":
                 switch (config.output.databaseType) {
 
                     case "mongodb":
-                        await saveOnMongo(req.body.content)
+                        await saveOnMongo(req.body)
                         break;
 
                     default:

@@ -4,7 +4,7 @@ const {
 
 const {config} = require("../../config/config")
 
-async function saveOnMongo(content) {
+async function saveOnMongo({content}) {
     const RawLog = require("../../persistence/mongo/RawLog")
 
     const rawLog = new RawLog({
@@ -15,7 +15,7 @@ async function saveOnMongo(content) {
     rawLog.save()
 }
 
-async function saveOnFile(content) {
+async function saveOnFile({content}) {
     const fileOutput = require("../../persistence/fileOutput")
 
     fileOutput.save(
@@ -38,14 +38,14 @@ exports.saveLog = async(req, res) => {
         switch (config.output.destination) {
 
             case "file":
-                await saveOnFile(req.body.content)
+                await saveOnFile(req.body)
                 break;
 
             case "database":
                 switch (config.output.databaseType) {
 
                     case "mongodb":
-                        await saveOnMongo(req.body.content)
+                        await saveOnMongo(req.body)
                         break;
 
                     default:
