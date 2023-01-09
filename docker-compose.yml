@@ -2,22 +2,22 @@ version: '3.1'
 
 services:
   logr:
-  image: ghcr.io/jnt0rrente/logr
-  environment:
-    APP_APIKEY: ${APP_APIKEY}
-    OUTPUT: "file" #"file" or "database"
-    
-    #if output: "database"
-    DATABASE_TYPE: "mongodb" #mariadb planned but not yet implemented
+    image: ghcr.io/jnt0rrente/logr
+    environment:
+      APP_APIKEY: ${APP_APIKEY}
+      OUTPUT: "file" #"file" or "database"
+      
+      #if output: "database"
+      DATABASE_TYPE: "mongodb" #mariadb planned but not yet implemented
 
-    #if database_type: "mongodb"
-    MONGODB_CONNECTION_STRING: ${MONGODB_CONNECTION_STRING}
-    
-    ports:
-      - 32032:32032
-    
-    volumes: #required if output: "file"
-      - logr:/logr
+      #if database_type: "mongodb"
+      MONGODB_CONNECTION_STRING: ${MONGODB_CONNECTION_STRING}
+      
+      ports:
+        - 32032:32032
+      
+      volumes: #required if output: "file"
+        - logr:/logr
 
 volumes:
   logr:
