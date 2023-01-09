@@ -13,7 +13,7 @@ ENV DATABASE_TYPE $database_type
 ARG mongodb_connection_string
 ENV MONGODB_CONNECTION_STRING $mongodb_connection_string
 
-ENV NODE_ENV development
+ENV NODE_ENV production
 
 
 # Setting up the work directory
