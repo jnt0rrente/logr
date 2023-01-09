@@ -5,14 +5,14 @@ services:
     build:
       context: "."
       args:
-        app_apikey: ${APP_APIKEY}
-        output: "file" #"file" or "database"
+        APP_APIKEY: ${APP_APIKEY}
+        OUTPUT: "file" #"file" or "database"
         
         #if output: "database"
-        database_type: "mongodb" #mariadb planned but not yet implemented
+        DATABASE_TYPE: "mongodb" #mariadb planned but not yet implemented
 
         #if database_type: "mongodb"
-        mongodb_connection_string: ${MONGODB_CONNECTION_STRING}
+        MONGODB_CONNECTION_STRING: ${MONGODB_CONNECTION_STRING}
     ports:
       - 32032:32032
     

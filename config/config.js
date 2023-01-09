@@ -15,7 +15,7 @@ function validateEnv(env) {
     validDatabases = ["mongodb"]
 
     if (env.apikey === "") {
-        throw new Error ("Unsupported database type or wrong configuration.")
+        throw new Error ("Wrong config: API key cannot be blank.")
     }
     
     if (!validOutputs.includes(env.output)) {
