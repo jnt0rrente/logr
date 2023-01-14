@@ -53,10 +53,10 @@ const adminRoutes = require("./api/admin/adminRouter")
 app.use("/admin", apikeyRouter, adminRoutes)
 
 const rawLogRoutes = require("./api/rawLog/rawLogRouter")
-app.use("/raw", apikeyRouter, rawLogRoutes)
+app.use("/raw", apikeyRouter, sourceTokenRouter, rawLogRoutes)
 
 const geolocationLogRoutes = require("./api/geolocationlog/geolocationLogRouter")
-app.use("/geolocation", apikeyRouter, geolocationLogRoutes)
+app.use("/geolocation", apikeyRouter, sourceTokenRouter, geolocationLogRoutes)
 
 let server = http.createServer(app);
 
