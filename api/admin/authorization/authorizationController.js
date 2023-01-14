@@ -23,7 +23,6 @@ exports.checkToken = async (req, res) => {
                     error: 'Source token error.'
                 })
             } else {
-                req.userPermissions = user.permissions
                 return res.status(200).json({
                     tokenData
                 });
