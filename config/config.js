@@ -14,11 +14,11 @@ function validateEnv(env) {
     validOutputs = ["file", "database"]
     validDatabases = ["mongodb"]
 
-    if (env.apikey === "") {
+    if (env.apikey === "" || env.apikey === undefined) {
         throw new Error("Config error: API key cannot be blank.")
     }
 
-    if (env.auth_secret === "") {
+    if (env.auth_secret === "" || env.auth_secret === undefined) {
         throw new Error("Config error: Auth secret cannot be blank.")
     }
     
@@ -87,6 +87,8 @@ function load() {
     } else {
         throw new Error("Not yet implemented.")
     }
+
+    console.log(exportedConfig)
 }
 
 const config = exportedConfig
