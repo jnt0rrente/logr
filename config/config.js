@@ -87,8 +87,6 @@ function load() {
     } else {
         throw new Error("Not yet implemented.")
     }
-
-    console.log(exportedConfig)
 }
 
 const config = exportedConfig
