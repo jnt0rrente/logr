@@ -48,6 +48,9 @@ app.use(json());
 
 const tokenRouter = require("./middleware/tokenRouter")
 
+const adminRoutes = require("./api/admin/adminRouter")
+app.use("/admin")
+
 const rawLogRoutes = require("./api/rawLog/rawLogRouter")
 app.use("/raw", tokenRouter, rawLogRoutes)
 
