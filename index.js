@@ -47,6 +47,7 @@ app.use(json());
 // });
 
 const apikeyRouter = require("./middleware/apikeyRouter")
+const sourceTokenRouter = require("./middleware/sourceTokenRouter")
 
 const adminRoutes = require("./api/admin/adminRouter")
 app.use("/admin", apikeyRouter, adminRoutes)
