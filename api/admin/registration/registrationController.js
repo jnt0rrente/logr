@@ -19,7 +19,10 @@ exports.createToken = async (req, res) => {
             expirationDate: req.body.expirationDate,
         }, config.auth_secret)
 
-        return token
+        return res.status(200).json({
+            status: "ok",
+            token: token
+        })
     } catch (error) {
         return res.status(500).json({
             error: error.message
