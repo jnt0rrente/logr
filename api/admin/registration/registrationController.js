@@ -20,8 +20,7 @@ exports.createToken = async (req, res) => {
 
         var token = jwt.sign({
             deviceId: req.body.deviceId,
-            valid: true,
-            ISO8601_expirationDate: req.body.expirationDate,
+            valid: true
         }, secret, {
             expiresIn: exp
         })
