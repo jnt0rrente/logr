@@ -1,5 +1,5 @@
 const {
-    validationResult
+    validationResult, body
 } = require("express-validator")
 
 const {config} = require("../../../config/config")
@@ -14,10 +14,17 @@ exports.createToken = async (req, res) => {
     }
 
     try {
-        const token = jwt.sign({
+        const expirationDate = new Date(req.body.expirationDate)
+        const exp = expirationDate.getTime() / 1000
+        const secret = config.auth_secret
+
+        var token = jwt.sign({
             deviceId: req.body.deviceId,
-            expirationDate: req.body.expirationDate,
-        }, config.auth_secret)
+            valid: true,
+            ISO8601_expirationDate: req.body.expirationDate,
+        }, secret, {
+            expiresIn: exp
+        })
 
         return res.status(200).json({
             status: "ok",
