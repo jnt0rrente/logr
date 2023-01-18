@@ -46,13 +46,17 @@ app.use(json());
 //     next();
 // });
 
-const tokenRouter = require("./middleware/tokenRouter")
+const apikeyRouter = require("./middleware/apikeyRouter")
+const sourceTokenRouter = require("./middleware/sourceTokenRouter")
+
+const adminRoutes = require("./api/admin/adminRouter")
+app.use("/admin", apikeyRouter, adminRoutes)
 
 const rawLogRoutes = require("./api/rawLog/rawLogRouter")
-app.use("/raw", tokenRouter, rawLogRoutes)
+app.use("/raw", sourceTokenRouter, rawLogRoutes)
 
 const geolocationLogRoutes = require("./api/geolocationlog/geolocationLogRouter")
-app.use("/geolocation", tokenRouter, geolocationLogRoutes)
+app.use("/geolocation", sourceTokenRouter, geolocationLogRoutes)
 
 let server = http.createServer(app);
 

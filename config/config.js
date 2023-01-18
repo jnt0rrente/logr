@@ -14,24 +14,28 @@ function validateEnv(env) {
     validOutputs = ["file", "database"]
     validDatabases = ["mongodb"]
 
-    if (env.apikey === "") {
-        throw new Error ("Wrong config: API key cannot be blank.")
+    if (env.apikey === "" || env.apikey === undefined) {
+        throw new Error("Config error: API key cannot be blank.")
+    }
+
+    if (env.auth_secret === "" || env.auth_secret === undefined) {
+        throw new Error("Config error: Auth secret cannot be blank.")
     }
     
     if (!validOutputs.includes(env.output)) {
-        throw new Error ("Invalid output option. Accepted: " + JSON.stringify(validOutputs) + ", got '" + env.output + "'.")
+        throw new Error ("Config error: Invalid output option. Accepted: " + JSON.stringify(validOutputs) + ", got '" + env.output + "'.")
     }
 
     if (env.output === "database") {
         switch (env.database_type) {
             case "mongodb":
                 if (env.mongodb_connection_string === undefined || !/mongodb(?:\+srv)?:\/\/.*/.test(env.mongodb_connection_string)) {
-                    throw new Error ("Invalid MongoDB connection string: '" + env.mongodb_connection_string + "'")
+                    throw new Error ("Config error: Invalid MongoDB connection string: '" + env.mongodb_connection_string + "'")
                 }
 
                 break;
             default:
-                throw new Error ("Invalid database type. Accepted: " + JSON.stringify(validDatabases) + ", got '" + env.database_type + "'.")
+                throw new Error ("Config error: Invalid database type. Accepted: " + JSON.stringify(validDatabases) + ", got '" + env.database_type + "'.")
         }
     }
 }
@@ -41,7 +45,8 @@ function loadEnv() {
         apikey: process.env.APP_APIKEY,
         output: process.env.OUTPUT,
         database_type: process.env.DATABASE_TYPE,
-        mongodb_connection_string: process.env.MONGODB_CONNECTION_STRING
+        mongodb_connection_string: process.env.MONGODB_CONNECTION_STRING,
+        auth_secret: process.env.AUTH_SECRET,
     }
 
     validateEnv(env)
@@ -56,7 +61,8 @@ function load() {
     exportedConfig.port = defaults.app.port
     exportedConfig.address = defaults.app.address
     exportedConfig.apikey = envVars.apikey ?? defaults.apikey
-    
+    exportedConfig.auth_secret = envVars.auth_secret
+
     const output = envVars.output
 
     if (output === "file") {

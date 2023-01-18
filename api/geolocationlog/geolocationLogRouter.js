@@ -7,7 +7,6 @@ const router = express.Router()
 
 router.post("/log",
     body("coordinates").notEmpty().isLatLong().trim().escape(),
-    body("sourceId").notEmpty().trim().escape(),
     rawLogController.saveLog
 )
 
