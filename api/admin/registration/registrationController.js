@@ -15,12 +15,11 @@ exports.createToken = async (req, res) => {
 
     try {
         const expirationDate = new Date(req.body.expirationDate)
-        const exp = expirationDate.getTime() / 1000
+        const exp = (expirationDate.getTime() / 1000) - (Math.round(new Date().getTime()/1000))
         const secret = config.auth_secret
 
         var token = jwt.sign({
-            deviceId: req.body.deviceId,
-            valid: true
+            deviceId: req.body.deviceId
         }, secret, {
             expiresIn: exp
         })

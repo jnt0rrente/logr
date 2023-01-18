@@ -17,13 +17,14 @@ exports.checkToken = async (req, res) => {
         const token = req.body.token
 
         jwt.verify(token, process.env.AUTH_SECRET, {}, async (error, tokenData) => {
-            if (error) {//|| ((Date.now() / 1000 - tokenData.iat) > 86400)) { //24h token
+            if (error || Date.now() / 1000 > tokenData.exp) {
                 return res.status(403).json({
-                    authorized: false,
-                    error: 'Source token error.'
+                    valid: false,
+                    error: error
                 })
             } else {
                 return res.status(200).json({
+                    valid: true,
                     tokenData
                 });
             }
