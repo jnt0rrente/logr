@@ -16,7 +16,7 @@ exports.checkToken = async (req, res) => {
     try {
         const token = req.body.token
 
-        jwt.verify(token, process.env.AUTH_SECRET, {}, async (error, tokenData) => {
+        jwt.verify(token, config.auth_secret, {}, async (error, tokenData) => {
             if (error || Date.now() / 1000 > tokenData.exp) {
                 return res.status(403).json({
                     valid: false,

@@ -7,7 +7,7 @@ const router = express.Router()
 
 router.post("/log",
     body("content").notEmpty().trim().escape(),
-    body("sourceId").notEmpty().trim().escape(),
+    //body("sourceId").notEmpty().trim().escape(),
     rawLogController.saveLog
 )
 
