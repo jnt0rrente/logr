@@ -5,27 +5,39 @@ const {
 const {config} = require("../../config/config")
 
 async function saveOnMongo({content}, sourceId, date) {
-    const RawLog = require("../../persistence/mongo/RawLog")
+    try {
+        const RawLog = require("../../persistence/mongo/RawLog")
 
-    const rawLog = new RawLog({
-        content,
-        sourceId,
-        timestamp: date
-    })
+        const rawLog = new RawLog({
+            content,
+            sourceId,
+            timestamp: date
+        })
 
-    rawLog.save()
+        rawLog.save()
+    } catch (error) {
+        return res.status(500).json({
+            error: error.message
+        })
+    }
 }
 
 async function saveOnFile({content}, sourceId, date) {
-    const fileOutput = require("../../persistence/fileOutput")
+    try {
+        const fileOutput = require("../../persistence/fileOutput")
 
-    fileOutput.save(
-        {
-            sourceId,
-            content,
-            timestamp: date.toISOString()
-        }
-    )
+        fileOutput.save(
+            {
+                sourceId,
+                content,
+                timestamp: date.toISOString()
+            }
+        )
+    } catch (error) {
+        return res.status(500).json({
+            error: error.message
+        })
+    }
 }
 
 exports.saveLog = async(req, res) => {
