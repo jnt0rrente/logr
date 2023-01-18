@@ -5,27 +5,39 @@ const {
 const {config} = require("../../config/config")
 
 async function saveOnMongo({coordinates}, sourceId, date) {
-    const GeolocationLog = require("../../persistence/mongo/GeolocationLog")
+    try {
+        const GeolocationLog = require("../../persistence/mongo/GeolocationLog")
 
-    const geolocationLog = new GeolocationLog({
-        coordinates,
-        sourceId,
-        timestamp: date
-    })
-
-    geolocationLog.save()
+        const geolocationLog = new GeolocationLog({
+            coordinates,
+            sourceId,
+            timestamp: date
+        })
+    
+        geolocationLog.save()
+    } catch (error) {
+        return res.status(500).json({
+            error: error.message
+        })
+    }
 }
 
 async function saveOnFile({coordinates}, sourceId, date) {
-    const fileOutput = require("../../persistence/fileOutput")
+    try {
+        const fileOutput = require("../../persistence/fileOutput")
 
-    fileOutput.save(
-        {
-            sourceId,
-            coordinates,
-            timestamp: date.toISOString()
-        }
-    )
+        fileOutput.save(
+            {
+                sourceId,
+                coordinates,
+                timestamp: date.toISOString()
+            }
+        )
+    } catch (error) {
+        return res.status(500).json({
+            error: error.message
+        })
+    }
 }
 
 exports.saveLog = async(req, res) => {
